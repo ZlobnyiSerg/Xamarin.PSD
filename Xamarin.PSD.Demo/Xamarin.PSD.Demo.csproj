@@ -102,11 +102,5 @@
   <ItemGroup>
     <BundleResource Include="Resources\Demo1.psd" />
     <BundleResource Include="Resources\Demo2.psd" />
-    <BundleResource Include="..\..\..\..\..\..\Volumes\Storage\Backup\Dropbox\pub\index-approved.psd">
-      <Link>Resources\index-approved.psd</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="Resources\RootController.xib" />
   </ItemGroup>
 </Project>

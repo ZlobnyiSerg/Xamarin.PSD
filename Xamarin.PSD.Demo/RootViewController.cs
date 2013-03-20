@@ -16,7 +16,7 @@ namespace Xamarin.PSD.Demo
 			UIImageView test = new UIImageView();
 			Stopwatch sw = new Stopwatch();
 			sw.Start ();
-			CPSD psd = new CPSD("Demo2.psd");
+			CPSD psd = new CPSD("Demo1.psd");
 			sw.Stop ();
 			Console.WriteLine(" ========= PSD LOAD TIME: {0} =========", sw.Elapsed);
 			Console.WriteLine("{0}x{1}", psd.GetWidth(), psd.GetHeight());
