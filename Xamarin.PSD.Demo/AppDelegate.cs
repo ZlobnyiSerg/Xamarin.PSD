@@ -4,6 +4,7 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System.IO;
 
 namespace Xamarin.PSD.Demo
 {
@@ -29,7 +30,7 @@ namespace Xamarin.PSD.Demo
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 			
 			// If you have defined a root view controller, set it here:
-			// window.RootViewController = myViewController;
+			window.RootViewController = new RootViewController();
 			
 			// make the window visible
 			window.MakeKeyAndVisible ();

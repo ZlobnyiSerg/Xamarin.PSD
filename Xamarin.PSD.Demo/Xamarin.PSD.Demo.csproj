@@ -90,12 +90,23 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="RootViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.PSD\Xamarin.PSD.csproj">
-      <Project>{70E9CCF8-B548-414A-9472-79014317BD9C}</Project>
+      <Project>{42B57BDB-02C1-4F3C-9245-23F3F1B2978C}</Project>
       <Name>Xamarin.PSD</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Demo1.psd" />
+    <BundleResource Include="Resources\Demo2.psd" />
+    <BundleResource Include="..\..\..\..\..\..\Volumes\Storage\Backup\Dropbox\pub\index-approved.psd">
+      <Link>Resources\index-approved.psd</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Resources\RootController.xib" />
   </ItemGroup>
 </Project>
