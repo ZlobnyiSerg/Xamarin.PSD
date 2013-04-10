@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Drawing;
 using MonoTouch.UIKit;
+using MonoTouch.Foundation;
 
 namespace Xamarin.PSD
 {
@@ -43,55 +44,70 @@ namespace Xamarin.PSD
 			m_nCompression = -1;
 			Load(strPathName);
 		}
-		// construction, destruction
-		
-		private void Load(string strPathName)
+
+		public CPSD(Stream stream)
 		{
+			m_bResolutionInfoFilled = false;
+			m_bThumbnailFilled = false;
+			m_bCopyright = false;
+			m_nColourCount = -1;
+			m_nGlobalAngle = 30;
+			m_nCompression = -1;
+			Load(stream);
+		}
+		// construction, destruction
+
+		private void Load (string strPathName) {
 			using (FileStream stream = new FileStream(strPathName, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-				try
-				{
-					ReadHeader(stream);
-				}
-				catch(Exception e)
-				{
-					throw new PSDException("Error reading file header", e);
-				}
+				Load (stream);
+			}
+		}
+		
+		private void Load (Stream stream)
+		{
+			try
+			{
+				ReadHeader(stream);
+			}
+			catch(Exception e)
+			{
+				throw new PSDException("Error reading file header", e);
+			}
 
-				try
-				{
-					ReadColourModeData(stream);
-				}
-				catch(Exception e)
-				{
-					throw new PSDException("Error reading colour mode data", e);
-				}		
+			try
+			{
+				ReadColourModeData(stream);
+			}
+			catch(Exception e)
+			{
+				throw new PSDException("Error reading colour mode data", e);
+			}		
 
-				try
-				{
-					ReadImageResource(stream);
-				}
-				catch(Exception e)
-				{
-					throw new PSDException("Error reading image resource", e);
-				}
+			try
+			{
+				ReadImageResource(stream);
+			}
+			catch(Exception e)
+			{
+				throw new PSDException("Error reading image resource", e);
+			}
 
-				try
-				{
-					ReadLayerAndMaskInfoSection(stream);
-				}
-				catch(Exception e)
-				{
-					throw new PSDException("Error reading layer and mask info section", e);
-				}
+			try
+			{
+				ReadLayerAndMaskInfoSection(stream);
+			}
+			catch(Exception e)
+			{
+				throw new PSDException("Error reading layer and mask info section", e);
+			}
 
-				try
-				{
-					ReadImageData(stream);
-				}
-				catch(Exception e)
-				{
-					throw new PSDException("Error reading image data", e);
-				}		
+			try
+			{
+				ReadImageData(stream);
+			}
+			catch(Exception e)
+			{
+				throw new PSDException("Error reading image data", e);
 			}
 		}
 
@@ -140,7 +156,7 @@ namespace Xamarin.PSD
 			return m_nCompression;
 		}
 		
-		protected void ReadHeader(FileStream stream)
+		protected void ReadHeader(Stream stream)
 		{
 			BinaryReader binReader = new BinaryReader(stream);
 
@@ -174,7 +190,7 @@ namespace Xamarin.PSD
 			}
 		}
 
-		protected void ReadColourModeData(FileStream stream)
+		protected void ReadColourModeData(Stream stream)
 		{
 			// Only indexed colour and duotone have colour mode data,
 			// for all other modes this section is 4 bytes length, the length field is set to zero
@@ -207,7 +223,7 @@ namespace Xamarin.PSD
 			}
 		}
 
-		protected void ReadImageResource(FileStream stream)
+		protected void ReadImageResource(Stream stream)
 		{
 			BinaryReader binReader = new BinaryReader(stream);
 
@@ -437,7 +453,7 @@ namespace Xamarin.PSD
 			}
 		}
 
-		protected void ReadLayerAndMaskInfoSection(FileStream stream) // currently ignore it
+		protected void ReadLayerAndMaskInfoSection(Stream stream) // currently ignore it
 		{
 			BinaryReader binReader = new BinaryReader(stream);
 
@@ -450,7 +466,7 @@ namespace Xamarin.PSD
 			if(stream.Position+nTotalBytes < stream.Length) stream.Position += nTotalBytes;
 		}
 
-		protected void ReadImageData(FileStream stream)
+		protected void ReadImageData(Stream stream)
 		{
 			BinaryReader binReader = new BinaryReader(stream);
 			try

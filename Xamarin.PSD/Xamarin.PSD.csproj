@@ -50,6 +50,6 @@
     <Compile Include="ColorExtensions.cs" />
     <Compile Include="CPSD.cs" />
     <Compile Include="PSDException.cs" />
-    <Compile Include="BufferToImage.cs" />
+    <Compile Include="ImageConverter.cs" />
   </ItemGroup>
 </Project>
